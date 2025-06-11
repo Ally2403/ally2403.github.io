@@ -1,55 +1,30 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Blog de Allison</title>
-</head>
-<body>
-    <header id="titulo">
-        <!-- el atributo id es muy importante para las etiquetas -->
-        <h1>Blog de Allison</h1>
-        
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
-        <link rel="stylesheet" href="style.css"/>
-    </header>
-    <nav>
-        <a href="index.html">HOME</a>
-        <a href="about.html">ABOUT</a>
-        <a href="content.html">CONTENT</a>
-        <a href="images.html">IMAGES</a>
-    </nav>
-
-    <!--div sirve de la misma manera que section-->
-    <div>
-        <p class="description">Descripción de mi blog</p>
-    </div>
-    <section class="container">
-        <article class="post">
-            <h2>Título de mi post</h2>
-            <p>Descripción de mi post</p>
-            <img src="img/formato vs tiempo orden.png" width="400" />
-            <p>Más texto del post</p>
-        </article>
-        <article class="post">
-            <h2>Título de mi post 2</h2>
-            <p>Descripción de mi post 2</p>
-            <img src="img/formato vs tiempo lectura.png" width="400" />
-            <p>Más texto del post</p>
-        </article>
-        <article class="post">
-            <h2>Título de mi post 3</h2>
-            <p>Descripción de mi post 3</p>
-            <img src="img/Núcleos vs tiempos.png" width="400" />
-            <p>Más texto del post</p>
-        </article>
-    </section>
-    <footer>
-        <section>
-            <a href="#titulo">Ir al comienzo</a>
-            <a href="mailto:allisonruizromero24@gmail.com">Contáctame aquí</a>
-        </section>
-        <p>Copyright 2025</p>
-    </footer>
-</body>
+<!doctype html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Cycle Tracker</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <h1>Period tracker</h1>
+    <form>
+      <fieldset>
+        <legend>Enter your period start and end date</legend>
+        <p>
+          <label for="start-date">Start date</label>
+          <input type="date" id="start-date" required />
+        </p>
+        <p>
+          <label for="end-date">End date</label>
+          <input type="date" id="end-date" required />
+        </p>
+      </fieldset>
+      <p>
+        <button type="submit">Add Period</button>
+      </p>
+    </form>
+    <section id="past-periods"></section>
+    <script src="app.js" defer></script>
+  </body>
 </html>
