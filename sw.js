@@ -1,16 +1,15 @@
 // sw.js
-
+//Rutas cambiadas
 const CACHE_NAME = 'pwa-ganado-v1';
-const ASSETS = [
-  '/',                   // Asume que tu index.html está en la raíz
-  '/index.html',
-  '/js/firebase-config.js',
-  '/js/db.js',
-  '/js/app.js',
-  '/js/utils.js',
-  '/css/styles.css',     // si tienes 
-  '/views/agregar.html',
-  '/views/main.html',
+const ASSETS = [                   
+  'index.html',
+  'js/firebase-config.js',
+  'js/db.js',
+  'js/app.js',
+  'js/utils.js',
+  'css/styles.css',     // si tienes 
+  'views/agregar.html',
+  'views/main.html',
   // añade aquí todos los recursos estáticos que uses
 ];
 
