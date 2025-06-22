@@ -1,61 +1,47 @@
-const VERSION = "v1";
-const CACHE_NAME = `period-tracker-${VERSION}`;
+// sw.js
 
-const APP_STATIC_RESOURCES = [
-  "/",
-  "/index.html",
-  "/style.css",
-  "/app.js",
-  "/cycletracker.json",
-  "/icons/wheel.svg",
+const CACHE_NAME = 'pwa-ganado-v1';
+const ASSETS = [
+  '/',                   // Asume que tu index.html está en la raíz
+  '/index.html',
+  '/js/firebase-config.js',
+  '/js/db.js',
+  '/js/app.js',
+  '/js/utils.js',
+  '/css/styles.css',     // si tienes 
+  '/views/agregar.html',
+  '/views/main.html',
+  // añade aquí todos los recursos estáticos que uses
 ];
 
-self.addEventListener("install", (event) => {
-  event.waitUntil(
-    (async () => {
-      const cache = await caches.open(CACHE_NAME);
-      cache.addAll(APP_STATIC_RESOURCES);
-    })(),
+// 1) Instalar el SW y cachear assets
+self.addEventListener('install', (ev) => {
+  ev.waitUntil(
+    caches.open(CACHE_NAME)
+      .then(cache => cache.addAll(ASSETS))
+      .then(() => self.skipWaiting())
   );
 });
 
-self.addEventListener("activate", (event) => {
-  event.waitUntil(
-    (async () => {
-      const names = await caches.keys();
-      await Promise.all(
-        names.map((name) => {
-          if (name !== CACHE_NAME) {
-            return caches.delete(name);
-          }
-          return undefined;
-        }),
-      );
-      await clients.claim();
-    })(),
+// 2) Activar el SW y limpiar caches antiguas
+self.addEventListener('activate', (ev) => {
+  ev.waitUntil(
+    caches.keys().then(keys =>
+      Promise.all(
+        keys
+          .filter(key => key !== CACHE_NAME)
+          .map(key => caches.delete(key))
+      )
+    ).then(() => self.clients.claim())
   );
 });
 
-self.addEventListener("fetch", (event) => {
-  // when seeking an HTML page
-  if (event.request.mode === "navigate") {
-    // Return to the index.html page
-    event.respondWith(caches.match("/"));
-    return;
-  }
-
-  // For every other request type
-  event.respondWith(
-    (async () => {
-      const cache = await caches.open(CACHE_NAME);
-      const cachedResponse = await cache.match(event.request.url);
-      if (cachedResponse) {
-        // Return the cached response if it's available.
-        return cachedResponse;
-      }
-      // Respond with a HTTP 404 response status.
-      return new Response(null, { status: 404 });
-    })(),
+// 3) Estrategia de fetch: cache-first
+self.addEventListener('fetch', (ev) => {
+  ev.respondWith(
+    caches.match(ev.request).then(cached => {
+      if (cached) return cached;
+      return fetch(ev.request);
+    })
   );
 });
-

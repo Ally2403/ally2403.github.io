@@ -1,39 +1,37 @@
 <!doctype html>
-<html lang="en-US">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width" />
-    <title>Cycle Tracker</title>
-    <link rel="stylesheet" href="style.css" />
-    <link rel="manifest" href="cycletracker.json" />
-    <link rel="icon" href="icons/wheel.svg" />
-  </head>
-  <body>
-    <h1>Period tracker</h1>
-    <form>
-      <fieldset>
-        <legend>Enter your period start and end date</legend>
-        <p>
-          <label for="start-date">Start date</label>
-          <input type="date" id="start-date" required />
-        </p>
-        <p>
-          <label for="end-date">End date</label>
-          <input type="date" id="end-date" required />
-        </p>
-      </fieldset>
-      <p>
-        <button type="submit">Add Period</button>
-      </p>
-    </form>
-    <section id="past-periods"></section>
-    <script src="app.js" defer></script>
-    <!-- Register the app's service worker. -->
-    <script>
-        if ("serviceWorker" in navigator) {
-            navigator.serviceWorker.register("sw.js");
-        }
-    </script>
+<html lang="es">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width" />
+        <title>Gestor de Ganado</title>
+        <link rel="stylesheet" href="css/style.css" />
+        <!--<link rel="manifest" href="manifest.json" /> -->
+    </head>
+    <body>
+        <header>
+            <h1>Gestor de Ganado</h1>
+        </header>
 
-  </body>
+        <main id="content"></main>
+        
+        <script type="module">
+            import Dexie from 'https://unpkg.com/dexie@3.2.4/dist/dexie.mjs';
+            window.Dexie = Dexie;
+        </script>
+
+        <script type="module" src="js/firebase-config.js"></script>
+
+        <script type="module" src="js/db.js"></script>
+        <script type="module" src="js/app.js"></script>
+        <script type="module" src="js/utils.js"></script>
+        <script>
+            if ('serviceWorker' in navigator) {
+                window.addEventListener('load', () => {
+                navigator.serviceWorker.register('sw.js')
+                    .then(reg => console.log('SW registrado:', reg.scope))
+                    .catch(err => console.warn('Falló registro de SW:', err));
+                });
+            }
+        </script>
+    </body>
 </html>
