@@ -7,7 +7,7 @@ const ASSETS = [
   'js/db.js',
   'js/app.js',
   'js/utils.js',
-  'css/styles.css',     // si tienes 
+  'css/style.css',     // si tienes 
   'views/agregar.html',
   'views/main.html',
   // añade aquí todos los recursos estáticos que uses
